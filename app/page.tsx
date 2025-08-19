@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/site-header"
 import { HeroSection } from "@/components/hero-section"
 import { TrustLogos } from "@/components/trust-logos"
-import { KeyFeatures } from "@/components/key-features"
+import { BlockchainRevolutionSection } from "@/components/blockchain-revolution-section"
 import { ProgramOverview } from "@/components/program-overview"
 import { CertificationPreview } from "@/components/certification-preview"
 import { Testimonials } from "@/components/testimonials"
@@ -16,7 +16,7 @@ export default function HomePage() {
       <main>
         <HeroSection />
         <TrustLogos />
-        <KeyFeatures />
+        <BlockchainRevolutionSection />
         <ProgramOverview />
         <CertificationPreview />
         <Testimonials />

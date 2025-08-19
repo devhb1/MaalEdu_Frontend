@@ -3,43 +3,87 @@
 export function TrustLogos() {
   const partners = [
     {
-      name: "Warnborough College UK",
-      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.15%E2%80%AFPM-ZniUa0jKhSorxLvc8MUsdLSBRrQ5vY.png",
+      name: "Stripe",
+      logo: "/assets/stripe.webp",
     },
     {
-      name: "University Malaya Sabah",
-      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.15%E2%80%AFPM-ZniUa0jKhSorxLvc8MUsdLSBRrQ5vY.png",
+      name: "Amazon Web Services",
+      logo: "/assets/aws.png",
     },
     {
-      name: "Malaysia Digital Status",
-      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.13%E2%80%AFPM-ajFwBnvT7wugCIeBqK4dUK1Gj4uBWe.png",
+      name: "BCO2",
+      logo: "/assets/bco2.png",
     },
     {
-      name: "Phenomenal Based LMS",
-      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.45%E2%80%AFPM-pOeiTVUGL0jSZr9du4j5EQlB7QdaWB.png",
+      name: "Ramz",
+      logo: "/assets/ramz-black.png",
+    },
+    {
+      name: "AIGB",
+      logo: "/assets/aigb-color.png",
+    },
+    {
+      name: "P2B",
+      logo: "/assets/p2b-logo.svg",
+    },
+    {
+      name: "CoinGecko",
+      logo: "/assets/coin-gecko.png",
+    },
+    {
+      name: "Pansea",
+      logo: "/assets/pansea-2.png",
     },
   ]
 
   return (
-    <section className="py-16 bg-white border-b">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Recognized & Accredited By</h2>
-          <p className="text-gray-600">Our programs are globally recognized and accredited by leading institutions</p>
-        </div>
+    <>
+      <style jsx>{`
+        @keyframes scroll-continuous {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        
+        .animate-scroll-continuous {
+          animation: scroll-continuous 15s linear infinite;
+        }
+      `}</style>
+      
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
+        <div className="w-full px-0">
+          <div className="text-center mb-12 px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors">
+              Trusted By Employees at Leading Organizations
+            </h2>
+          </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
-          {partners.map((partner, index) => (
-            <div key={index} className="flex items-center justify-center p-4">
-              <img
-                src={partner.logo || "/placeholder.svg"}
-                alt={partner.name}
-                className="max-h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
-              />
+          {/* Single row of scrolling logos */}
+          <div className="relative overflow-hidden w-full">
+            <div className="flex animate-scroll-continuous space-x-24 md:space-x-32 items-center whitespace-nowrap">
+              {/* First set of logos */}
+              {partners.map((partner, index) => (
+                <div key={index} className="flex items-center justify-center flex-shrink-0">
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-12 md:h-16 w-auto object-contain transition-all duration-300 hover:scale-110"
+                  />
+                </div>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {partners.map((partner, index) => (
+                <div key={index + partners.length} className="flex items-center justify-center flex-shrink-0">
+                  <img
+                    src={partner.logo}
+                    alt={partner.name}
+                    className="h-12 md:h-16 w-auto object-contain transition-all duration-300 hover:scale-110"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   )
 }
