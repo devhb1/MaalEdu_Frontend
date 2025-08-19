@@ -9,7 +9,7 @@ export default function ContactUsPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="pt-20">
+      <main>
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-orange-50 via-white to-orange-50/50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
           <div className="container mx-auto px-4">

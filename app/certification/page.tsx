@@ -9,7 +9,7 @@ export default function CertificationPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="pt-20">
+      <main>
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-orange-500 via-orange-600 to-orange-700 relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">

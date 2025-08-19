@@ -5,7 +5,7 @@ export default function TermsAndConditionsPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="pt-20">
+      <main>
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-8">

@@ -9,7 +9,7 @@ export default function AboutUsPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="pt-20">
+      <main>
         {/* Hero Section */}
         <section className="py-20 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 dark:from-orange-600 dark:via-orange-700 dark:to-orange-800 transition-colors relative overflow-hidden">
           <div className="container mx-auto px-4 relative z-10">
@@ -29,7 +29,7 @@ export default function AboutUsPage() {
                   alt="Blockchain Education Innovation"
                   width={500}
                   height={400}
-                 
+                  className="w-full h-auto object-contain"
                 />
               </div>
             </div>

@@ -76,7 +76,7 @@ export default function CareerPathwayPage() {
       <SiteHeader />
       
       {/* Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 dark:from-orange-600 dark:via-orange-700 dark:to-orange-800 relative overflow-hidden">
+      <section className="py-16 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 dark:from-orange-600 dark:via-orange-700 dark:to-orange-800 relative overflow-hidden">
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
             <div className="text-white">
