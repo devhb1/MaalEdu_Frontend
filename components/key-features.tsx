@@ -83,34 +83,34 @@ export function KeyFeatures() {
             return (
               <Card
                 key={index}
-                className="text-center p-8 hover:shadow-xl transition-all duration-300 border-0 bg-white hover:-translate-y-2 group relative overflow-hidden"
+                className="text-center p-8 hover:shadow-xl transition-all duration-300 border-0 bg-white dark:bg-gray-800 hover:-translate-y-2 group relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent dark:from-orange-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 <CardContent className="space-y-6 relative z-10">
-                  <div className="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto group-hover:bg-orange-200 transition-all duration-300 group-hover:scale-110">
-                    <Icon className="w-10 h-10 text-orange-600 group-hover:scale-110 transition-transform duration-300" />
+                  <div className="w-20 h-20 bg-orange-100 dark:bg-orange-900/50 rounded-full flex items-center justify-center mx-auto group-hover:bg-orange-200 dark:group-hover:bg-orange-800/70 transition-all duration-300 group-hover:scale-110">
+                    <Icon className="w-10 h-10 text-orange-600 dark:text-orange-400 group-hover:scale-110 transition-transform duration-300" />
                   </div>
 
                   {/* Feature Title */}
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-orange-700 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-orange-700 dark:group-hover:text-orange-400 transition-colors duration-300">
                     {feature.title}
                   </h3>
 
                   {/* Feature Description */}
-                  <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
                     {feature.description}
                   </p>
                 </CardContent>
 
-                <div className="absolute inset-0 border-2 border-orange-200 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 border-2 border-orange-200 dark:border-orange-800 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </Card>
             )
           })}
         </div>
 
-        <div className="text-center mt-16 pt-8 border-t border-gray-200">
-          <p className="text-gray-600 mb-4">Ready to experience these features firsthand?</p>
+        <div className="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700">
+          <p className="text-gray-600 dark:text-gray-300 mb-4">Ready to experience these features firsthand?</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="/about-us"

@@ -20,12 +20,12 @@ import { ArrowRight, Users, BookOpen } from "lucide-react"
  */
 export function CTASection() {
   return (
-    <section className="py-20 bg-gradient-to-br from-orange-600 via-orange-700 to-orange-800 relative overflow-hidden">
+    <section className="py-20 bg-gradient-to-br from-orange-600 via-orange-700 to-orange-800 dark:from-orange-700 dark:via-orange-800 dark:to-orange-900 relative overflow-hidden transition-colors">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-white opacity-5 rounded-full"></div>
-        <div className="absolute bottom-10 right-10 w-48 h-48 bg-white opacity-5 rounded-full"></div>
-        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white opacity-10 rounded-full"></div>
+        <div className="absolute top-10 left-10 w-32 h-32 bg-white dark:bg-gray-100 opacity-5 rounded-full"></div>
+        <div className="absolute bottom-10 right-10 w-48 h-48 bg-white dark:bg-gray-100 opacity-5 rounded-full"></div>
+        <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-white dark:bg-gray-100 opacity-10 rounded-full"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -35,7 +35,7 @@ export function CTASection() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4 leading-tight">
               Ready To Elevate Your Career?
             </h2>
-            <p className="text-xl text-orange-100 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-orange-100 dark:text-orange-200 max-w-3xl mx-auto leading-relaxed transition-colors">
               Join hundreds of professionals who have transformed their careers with our blockchain education program.
               Start your journey today and become part of the digital revolution.
             </p>
@@ -47,7 +47,7 @@ export function CTASection() {
             <Button
               asChild
               size="lg"
-              className="bg-white text-orange-600 hover:bg-gray-100 transition-all duration-300 hover:shadow-xl hover:scale-105 group"
+              className="bg-white text-orange-600 hover:bg-gray-100 dark:hover:bg-gray-200 transition-all duration-300 hover:shadow-xl hover:scale-105 group"
             >
               <Link href="https://lms.maaledu.com" target="_blank" rel="noopener noreferrer">
                 <BookOpen className="mr-2 h-4 w-4 group-hover:rotate-12 transition-transform duration-300" />
@@ -72,7 +72,7 @@ export function CTASection() {
 
           {/* Additional trust indicator */}
           <div className="pt-8 border-t border-orange-500 border-opacity-30">
-            <p className="text-orange-200 text-sm">
+            <p className="text-orange-200 dark:text-orange-300 text-sm transition-colors">
               ✨ Trusted by 500+ students worldwide • 🏆 Dual certification program • 🌍 Global recognition
             </p>
           </div>

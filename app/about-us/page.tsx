@@ -11,29 +11,76 @@ export default function AboutUsPage() {
       <SiteHeader />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-orange-50 to-white">
+        <section className="py-20 bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 dark:from-orange-600 dark:via-orange-700 dark:to-orange-800 transition-colors relative overflow-hidden">
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+              <div className="text-white">
+                <h1 className="text-4xl md:text-6xl font-bold mb-8 leading-tight">
+                  Pioneering Blockchain Education With A Vision For The Future
+                </h1>
+                <p className="text-xl text-orange-100 leading-relaxed">
+                  We empower the next generation of blockchain innovators through accessible, industry-relevant education.
+                  Our courses cater to high school leavers, undergraduates, postgraduates, and aspiring professionals.
+                </p>
+              </div>
+              <div className="relative">
+                <Image
+                  src="/assets/About Us 1.png"
+                  alt="Blockchain Education Innovation"
+                  width={500}
+                  height={400}
+                 
+                />
+              </div>
+            </div>
+          </div>
+          {/* Decorative Elements */}
+          <div className="absolute top-20 right-20 w-32 h-32 bg-orange-300/20 rounded-full blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-48 h-48 bg-orange-300/10 rounded-full blur-2xl"></div>
+        </section>
+
+        {/* Circular Navigation Diagram */}
+        <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors">
           <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <Badge className="mb-6 bg-orange-100 text-orange-800 hover:bg-orange-200">
-                Pioneering Blockchain Education
-              </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">Maal Data Lab</h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                We empower the next generation of blockchain innovators through accessible, industry-relevant education.
-                Our courses cater to high school leavers, undergraduates, postgraduates, and aspiring professionals.
-              </p>
+            <div className="grid lg:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
+              {/* Left side - Logo */}
+              <div className="relative flex items-center justify-center">
+                <div className="relative">
+                  <Image
+                    src="/assets/maal-datalabs.svg"
+                    alt="Maal Data Labs Logo"
+                    width={400}
+                    height={400}
+                    className="w-full h-auto max-w-md mx-auto"
+                  />
+                </div>
+              </div>
+
+              {/* Right side - Content */}
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+                  <span className="text-orange-600 dark:text-orange-400">Maal Data Lab</span>
+                </h2>
+                <div className="w-16 h-1 bg-gray-800 dark:bg-gray-300 mb-6"></div>
+                <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                  We empower the next generation of blockchain innovators through accessible, 
+                  industry-relevant education. Our courses cater to high school leavers, 
+                  undergraduates, postgraduates, and aspiring professionals, offering flexibility and 
+                  hands-on experience for real-world success in the blockchain space.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* Vision, Mission, Approach */}
-        <section className="py-20">
+        <section className="py-20 bg-white dark:bg-gray-900 transition-colors">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              <Card className="text-center p-8 border-2 hover:border-orange-200 transition-colors">
+              <Card className="text-center p-8 border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-orange-200 dark:hover:border-orange-400 transition-colors">
                 <CardContent className="pt-6">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/70 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-8 h-8 text-orange-600 dark:text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -48,17 +95,17 @@ export default function AboutUsPage() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors">Our Vision</h3>
+                  <p className="text-gray-600 dark:text-gray-200 leading-relaxed transition-colors">
                     To be the leading global platform for blockchain education, fostering innovation and excellence.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="text-center p-8 border-2 hover:border-orange-200 transition-colors">
+              <Card className="text-center p-8 border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-orange-200 dark:hover:border-orange-400 transition-colors">
                 <CardContent className="pt-6">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/70 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-8 h-8 text-orange-600 dark:text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -67,18 +114,18 @@ export default function AboutUsPage() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors">Our Mission</h3>
+                  <p className="text-gray-600 dark:text-gray-200 leading-relaxed transition-colors">
                     To bridge the gap between traditional education and the evolving needs of the blockchain industry
                     through high-quality, hands-on learning experiences.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="text-center p-8 border-2 hover:border-orange-200 transition-colors">
+              <Card className="text-center p-8 border-2 border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-orange-200 dark:hover:border-orange-400 transition-colors">
                 <CardContent className="pt-6">
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/70 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg className="w-8 h-8 text-orange-600 dark:text-orange-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -87,8 +134,8 @@ export default function AboutUsPage() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Approach</h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors">Our Approach</h3>
+                  <p className="text-gray-600 dark:text-gray-200 leading-relaxed transition-colors">
                     Modern and phenomenal! Blending Web3 elements with a forward-thinking, engaging, and comprehensive
                     curriculum.
                   </p>
@@ -99,14 +146,14 @@ export default function AboutUsPage() {
         </section>
 
         {/* Malaysia Digital Status */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  Join the Blockchain Revolution at <span className="text-orange-600">Maal Data Lab</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 transition-colors">
+                  Join the Blockchain Revolution at <span className="text-orange-600 dark:text-orange-400">Maal Data Lab</span>
                 </h2>
-                <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed transition-colors">
                   Maal Data Lab has been awarded Malaysia Digital Status by the Malaysian Government, through MDEC,
                   recognizing our ability to participate in and contribute to the country's digital transformation
                   initiatives under the Malaysia Digital program.
@@ -124,23 +171,23 @@ export default function AboutUsPage() {
                   />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Malaysia Digital Status Recognition</h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">Malaysia Digital Status Recognition</h3>
+                  <p className="text-gray-600 dark:text-gray-200 mb-6 leading-relaxed">
                     This prestigious certification validates our commitment to digital excellence and positions us as a
                     key contributor to Malaysia's digital transformation journey.
                   </p>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-orange-600 rounded-full mt-2"></div>
-                      <p className="text-gray-600">Recognized by Malaysian Government through MDEC</p>
+                      <div className="w-2 h-2 bg-orange-600 dark:bg-orange-400 rounded-full mt-2"></div>
+                      <p className="text-gray-600 dark:text-gray-200">Recognized by Malaysian Government through MDEC</p>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-orange-600 rounded-full mt-2"></div>
-                      <p className="text-gray-600">Certified for digital transformation initiatives</p>
+                      <div className="w-2 h-2 bg-orange-600 dark:bg-orange-400 rounded-full mt-2"></div>
+                      <p className="text-gray-600 dark:text-gray-200">Certified for digital transformation initiatives</p>
                     </div>
                     <div className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-orange-600 rounded-full mt-2"></div>
-                      <p className="text-gray-600">Part of Malaysia Digital program</p>
+                      <div className="w-2 h-2 bg-orange-600 dark:bg-orange-400 rounded-full mt-2"></div>
+                      <p className="text-gray-600 dark:text-gray-200">Part of Malaysia Digital program</p>
                     </div>
                   </div>
                 </div>
@@ -150,84 +197,154 @@ export default function AboutUsPage() {
         </section>
 
         {/* Program & Awards */}
-        <section className="py-20">
+        <section className="py-20 bg-white dark:bg-gray-900 transition-colors">
           <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Program & Award</h2>
-                <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                  Our globally recognized Dual Diploma Program, developed in collaboration with Maal Data Lab and
-                  Warnborough College UK.
-                </p>
+            <div className="max-w-7xl mx-auto">
+              {/* Header Section */}
+              <div className="text-center mb-20">
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-8 transition-colors">
+                  Our Program & Award
+                </h2>
+                <div className="max-w-4xl mx-auto">
+                  <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed transition-colors">
+                    Our globally recognized Dual Diploma Program, developed in collaboration with Maal Data Lab and Warnborough College UK.
+                  </p>
+                </div>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                <Card className="text-center p-8 border-2 hover:border-orange-200 transition-colors">
-                  <CardContent className="pt-6">
-                    <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-                        />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">
-                      Professional Diploma in Blockchain Technology (PDipBT)
+              {/* Main Content Grid */}
+              <div className="grid lg:grid-cols-5 gap-16 items-start">
+                {/* Left Description - Takes 2 columns */}
+                <div className="lg:col-span-2">
+                  <div className="sticky top-8">
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 leading-tight mb-6 transition-colors">
+                      Comprehensive Education Partnership
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Industry-focused certification that prepares you for real-world blockchain applications.
+                    <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8 transition-colors">
+                      Experience world-class blockchain education through our strategic partnerships with leading institutions and industry experts.
                     </p>
-                  </CardContent>
-                </Card>
-
-                <Card className="text-center p-8 border-2 hover:border-orange-200 transition-colors">
-                  <CardContent className="pt-6">
-                    <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                        />
-                      </svg>
+                    <div className="hidden lg:block">
+                      <div className="w-20 h-1 bg-orange-600 dark:bg-orange-400 mb-4"></div>
+                      <p className="text-sm text-gray-500 dark:text-gray-500 transition-colors">
+                        Recognized globally • Industry-focused • Career-ready
+                      </p>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Diploma in Blockchain Technology (DipBT)</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Academic qualification from Warnborough College UK, providing theoretical foundation.
-                    </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
 
-                <Card className="text-center p-8 border-2 hover:border-orange-200 transition-colors">
-                  <CardContent className="pt-6">
-                    <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <svg className="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                        />
-                      </svg>
+                {/* Right Programs List - Takes 3 columns */}
+                <div className="lg:col-span-3">
+                  <div className="space-y-12">
+                    {/* Professional Diploma */}
+                    <div className="group">
+                      <div className="flex items-start justify-between gap-8">
+                        <div className="flex-1">
+                          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                            Professional Diploma in Blockchain Technology (PDipBT)
+                          </h4>
+                          <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed transition-colors">
+                            Industry-focused certification that prepares you for real-world blockchain applications.
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all group-hover:shadow-md">
+                            <Image
+                              src="/assets/lms-orange.webp"
+                              alt="Phenomenal Based LMS"
+                              width={120}
+                              height={40}
+                              className="h-10 w-auto object-contain"
+                            />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-4">Corporate Training Certification (CTC)</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      Specialized corporate training programs for organizations looking to upskill their teams.
-                    </p>
-                  </CardContent>
-                </Card>
+
+                    {/* Academic Diploma */}
+                    <div className="group">
+                      <div className="flex items-start justify-between gap-8">
+                        <div className="flex-1">
+                          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                            Diploma in Blockchain Technology (DipBT)
+                          </h4>
+                          <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed transition-colors">
+                            Academic qualification from Warnborough College UK, providing theoretical foundation.
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all group-hover:shadow-md">
+                            <Image
+                              src="/assets/warnaborough-logo.webp"
+                              alt="Warnborough College UK"
+                              width={120}
+                              height={40}
+                              className="h-10 w-auto object-contain"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* University Partnership */}
+                    <div className="group">
+                      <div className="flex items-start justify-between gap-8">
+                        <div className="flex-1">
+                          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                            University Partnership
+                          </h4>
+                          <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed transition-colors">
+                            Strategic collaboration with leading Malaysian universities for enhanced academic recognition.
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all group-hover:shadow-md">
+                            <Image
+                              src="/assets/ums.webp"
+                              alt="Universiti Malaysia Sabah"
+                              width={120}
+                              height={40}
+                              className="h-10 w-auto object-contain"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Corporate Training */}
+                    <div className="group">
+                      <div className="flex items-start justify-between gap-8">
+                        <div className="flex-1">
+                          <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                            Corporate Training Certification (CTC)
+                          </h4>
+                          <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed transition-colors">
+                            Specialized corporate training programs for organizations looking to upskill their teams.
+                          </p>
+                        </div>
+                        <div className="flex-shrink-0">
+                          <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 transition-all group-hover:shadow-md">
+                            <Image
+                              src="/assets/maal-data-lab.webp"
+                              alt="Maal Data Lab"
+                              width={120}
+                              height={40}
+                              className="h-10 w-auto object-contain"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <div className="text-center mt-12">
-                <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3">
-                  <a href="https://lms.maaledu.com" target="_blank" rel="noopener noreferrer">
+              {/* Call to Action */}
+              <div className="text-center mt-20">
+                <div className="inline-flex items-center justify-center">
+                  <Button size="lg" className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                     Begin Learning Today
-                  </a>
-                </Button>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>

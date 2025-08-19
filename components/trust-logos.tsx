@@ -2,29 +2,44 @@
 
 export function TrustLogos() {
   const partners = [
-    { name: "Amazon Web Services", logo: "/assets/Group 32.png" },
-    { name: "Microsoft Azure", logo: "/assets/Group 38.png" },
-    { name: "coincover", logo: "/assets/Group 508.png" },
-    { name: "Fireblocks", logo: "/assets/Group 534.png" },
-  ];
+    {
+      name: "Warnborough College UK",
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.15%E2%80%AFPM-ZniUa0jKhSorxLvc8MUsdLSBRrQ5vY.png",
+    },
+    {
+      name: "University Malaya Sabah",
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.15%E2%80%AFPM-ZniUa0jKhSorxLvc8MUsdLSBRrQ5vY.png",
+    },
+    {
+      name: "Malaysia Digital Status",
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.13%E2%80%AFPM-ajFwBnvT7wugCIeBqK4dUK1Gj4uBWe.png",
+    },
+    {
+      name: "Phenomenal Based LMS",
+      logo: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-08-14%20at%2012.40.45%E2%80%AFPM-pOeiTVUGL0jSZr9du4j5EQlB7QdaWB.png",
+    },
+  ]
 
   return (
-    <section className="py-8 bg-white border-b">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-          <p className="text-sm font-semibold text-gray-700 mb-2 md:mb-0">Trusted By Employees at Leading Organizations</p>
-          <div className="flex gap-8 items-center overflow-x-auto">
-            {partners.map((partner, idx) => (
+    <section className="py-16 bg-white border-b">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Recognized & Accredited By</h2>
+          <p className="text-gray-600">Our programs are globally recognized and accredited by leading institutions</p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 items-center">
+          {partners.map((partner, index) => (
+            <div key={index} className="flex items-center justify-center p-4">
               <img
-                key={idx}
-                src={partner.logo}
+                src={partner.logo || "/placeholder.svg"}
                 alt={partner.name}
-                className="h-8 w-auto grayscale hover:grayscale-0 opacity-80 hover:opacity-100 transition"
+                className="max-h-16 w-auto grayscale hover:grayscale-0 transition-all duration-300 opacity-70 hover:opacity-100"
               />
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
-  );
+  )
 }

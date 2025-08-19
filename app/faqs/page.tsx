@@ -132,14 +132,14 @@ export default function FAQsPage() {
       <SiteHeader />
       <main className="pt-20">
         {/* Hero Section */}
-        <section className="py-20 bg-gradient-to-br from-orange-50 to-white">
+        <section className="py-20 bg-gradient-to-br from-orange-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <Badge className="mb-6 bg-orange-100 text-orange-800 hover:bg-orange-200">
+              <Badge className="mb-6 bg-orange-100 dark:bg-orange-900/50 text-orange-800 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-800/70 transition-colors">
                 Frequently Asked Questions
               </Badge>
-              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">Got Questions?</h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 transition-colors">Got Questions?</h1>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed transition-colors">
                 Find answers to the most common questions about our blockchain education programs, dual diploma
                 certification, and learning experience.
               </p>
@@ -148,7 +148,7 @@ export default function FAQsPage() {
         </section>
 
         {/* FAQs Section */}
-        <section className="py-20">
+        <section className="py-20 bg-white dark:bg-gray-900 transition-colors">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <Accordion type="single" collapsible className="space-y-4">
@@ -156,12 +156,12 @@ export default function FAQsPage() {
                   <AccordionItem
                     key={index}
                     value={`item-${index}`}
-                    className="border border-gray-200 rounded-lg px-6 hover:border-orange-200 transition-colors"
+                    className="border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 rounded-lg px-6 hover:border-orange-200 dark:hover:border-orange-400 transition-colors"
                   >
-                    <AccordionTrigger className="text-left font-semibold text-gray-900 hover:text-orange-600 py-6">
+                    <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-white hover:text-orange-600 dark:hover:text-orange-400 py-6 transition-colors">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-gray-600 leading-relaxed pb-6">{faq.answer}</AccordionContent>
+                    <AccordionContent className="text-gray-600 dark:text-gray-200 leading-relaxed pb-6 transition-colors">{faq.answer}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>
@@ -170,11 +170,11 @@ export default function FAQsPage() {
         </section>
 
         {/* Contact CTA */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Still Have Questions?</h2>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 transition-colors">Still Have Questions?</h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed transition-colors">
                 Can't find the answer you're looking for? Our support team is here to help.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -62,13 +62,13 @@ export function CareerPathwaysPreview() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-orange-50 to-white">
+    <section className="py-20 bg-gradient-to-br from-orange-50 to-white dark:from-gray-800 dark:to-gray-900 transition-colors">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Career Pathways in <span className="text-orange-600">Blockchain</span>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors">
+            Career Pathways in <span className="text-orange-600 dark:text-orange-400">Blockchain</span>
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8 transition-colors">
             Unlock Your Future with Blockchain Expertise. Our comprehensive curriculum develops the skills and
             credentials needed for professional success in this rapidly growing field.
           </p>
@@ -80,14 +80,14 @@ export function CareerPathwaysPreview() {
             return (
               <Card
                 key={index}
-                className="text-center p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white group"
+                className="text-center p-6 hover:shadow-lg transition-all duration-300 border-0 bg-white dark:bg-gray-700 group"
               >
                 <CardContent className="space-y-4">
-                  <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-orange-600 transition-colors">
-                    <Icon className="w-8 h-8 text-orange-600 group-hover:text-white transition-colors" />
+                  <div className="w-16 h-16 bg-orange-100 dark:bg-orange-900/70 rounded-2xl flex items-center justify-center mx-auto group-hover:bg-orange-600 dark:group-hover:bg-orange-600 transition-colors">
+                    <Icon className="w-8 h-8 text-orange-600 dark:text-orange-300 group-hover:text-white transition-colors" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900">{pathway.title}</h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">{pathway.description}</p>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white transition-colors">{pathway.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-200 leading-relaxed transition-colors">{pathway.description}</p>
                 </CardContent>
               </Card>
             )
