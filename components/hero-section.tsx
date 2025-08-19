@@ -79,17 +79,9 @@ export function HeroSection() {
               <img
                 src="/assets/HomePage1.png"
                 alt="Blockchain Career Pathways"
-                className="w-full h-auto rounded-2xl shadow-2xl"
+                className="w-full h-auto object-contain mix-blend-multiply"
               />
             </div>
-            {/* Floating elements */}
-            {/* <div className="absolute -top-4 -right-4 w-24 h-24 bg-orange-100 rounded-full flex items-center justify-center shadow-lg">
-              <span className="text-orange-600 font-bold text-sm">
-                Dual
-                <br />
-                Diploma
-              </span>
-            </div> */}
           </div>
         </div>
       </div>
