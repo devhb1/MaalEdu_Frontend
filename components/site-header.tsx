@@ -54,6 +54,14 @@ export function SiteHeader() {
               </Link>
 
               <Link
+                href="/courses"
+                className="text-white dark:text-gray-100 font-medium hover:text-orange-100 dark:hover:text-orange-200 transition-colors duration-200 relative group"
+              >
+                Courses
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white dark:bg-gray-100 transition-all duration-200 group-hover:w-full"></span>
+              </Link>
+
+              <Link
                 href="/certification"
                 className="text-white dark:text-gray-100 font-medium hover:text-orange-100 dark:hover:text-orange-200 transition-colors duration-200 relative group"
               >
@@ -153,6 +161,13 @@ export function SiteHeader() {
                     onClick={() => setIsOpen(false)}
                   >
                     Career Pathway
+                  </Link>
+                  <Link 
+                    href="/courses" 
+                    className="text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors py-2" 
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Courses
                   </Link>
                   <Link 
                     href="/certification" 
