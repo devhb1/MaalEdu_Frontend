@@ -5,7 +5,7 @@ import { CheckoutRequest, CheckoutResponse } from '@/lib/types'
 import { z } from 'zod'
 
 const checkoutSchema = z.object({
-    courseId: z.string().min(1, 'Course ID is required').regex(/^[a-zA-Z0-9-_]+$/, 'Course ID must contain only letters, numbers, hyphens, and underscores'),
+    courseId: z.string().min(1, 'Course ID is required').regex(/^[a-zA-Z0-9-_:+]+$/, 'Course ID must contain only letters, numbers, hyphens, underscores, colons, and plus signs'),
     email: z.string().email('Valid email is required')
 })
 

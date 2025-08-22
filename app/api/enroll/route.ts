@@ -6,7 +6,7 @@ import connectToDatabase from '@/lib/db'
 import { Enrollment } from '@/lib/models'
 
 const enrollmentSchema = z.object({
-    courseId: z.string().min(1, 'Course ID is required').regex(/^[a-zA-Z0-9-_]+$/, 'Course ID must contain only letters, numbers, hyphens, and underscores'),
+    courseId: z.string().min(1, 'Course ID is required').regex(/^[a-zA-Z0-9-_:+]+$/, 'Course ID must contain only letters, numbers, hyphens, underscores, colons, and plus signs'),
     email: z.string().email('Valid email is required')
 })
 
