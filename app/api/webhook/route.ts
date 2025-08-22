@@ -11,18 +11,11 @@ if (!webhookSecret) {
 }
 
 export async function POST(request: NextRequest) {
-    console.log('🎯 WEBHOOK RECEIVED at:', new Date().toISOString())
-    console.log('🔍 Request URL:', request.url)
-    console.log('🔍 Request method:', request.method)
+    console.log('🎯 Stripe webhook received at:', new Date().toISOString())
 
     try {
         const body = await request.text()
         const signature = request.headers.get('stripe-signature')
-
-        console.log('📝 Webhook body length:', body.length)
-        console.log('🔐 Signature present:', !!signature)
-        console.log('🔐 Signature value:', signature ? 'whsec_***' + signature.slice(-10) : 'NONE')
-        console.log('🎯 Expected webhook secret:', webhookSecret ? 'whsec_***' + webhookSecret.slice(-10) : 'NONE')
 
         if (!signature) {
             console.error('❌ Missing stripe-signature header')
@@ -36,7 +29,7 @@ export async function POST(request: NextRequest) {
 
         try {
             event = stripe.webhooks.constructEvent(body, signature, webhookSecret!)
-            console.log('✅ Webhook signature verified successfully')
+            console.log('✅ Webhook verified:', event.type, event.id)
         } catch (err) {
             console.error('❌ Webhook signature verification failed:', err)
             return NextResponse.json(
@@ -50,13 +43,13 @@ export async function POST(request: NextRequest) {
         // Handle the event
         switch (event.type) {
             case 'payment_intent.succeeded': {
-                console.log('💰 Payment intent succeeded event received')
+                console.log('💰 Payment intent succeeded - processing enrollment')
                 const paymentIntent = event.data.object as Stripe.PaymentIntent
                 await handleSuccessfulPayment(paymentIntent)
                 break
             }
             case 'checkout.session.completed': {
-                console.log('🛒 Checkout session completed event received')
+                console.log('🛒 Checkout session completed - processing enrollment')
                 const session = event.data.object as Stripe.Checkout.Session
                 await handleCheckoutSessionCompleted(session)
                 break
@@ -112,7 +105,7 @@ async function handleSuccessfulPayment(paymentIntent: Stripe.PaymentIntent) {
             return
         }
 
-        console.log('💾 Creating new enrollment record...')
+        console.log('💾 📊 SAVING TO MONGODB IN REAL-TIME...')
 
         // Create enrollment record
         const enrollmentData = {
@@ -124,17 +117,20 @@ async function handleSuccessfulPayment(paymentIntent: Stripe.PaymentIntent) {
             timestamp: new Date().toISOString()
         }
 
-        console.log('📋 Enrollment data:', JSON.stringify(enrollmentData, null, 2))
+        console.log('📋 Real-time enrollment data:', JSON.stringify(enrollmentData, null, 2))
 
         const enrollment = new Enrollment(enrollmentData)
 
         const savedEnrollment = await enrollment.save()
-        console.log('✅ Enrollment saved successfully:', savedEnrollment._id)
-        console.log('📊 Saved enrollment details:', JSON.stringify(savedEnrollment.toObject(), null, 2))
+        console.log('✅ 🎉 MONGODB SAVE SUCCESSFUL!')
+        console.log('🆔 Enrollment ID:', savedEnrollment._id)
+        console.log('📧 Student Email:', savedEnrollment.email)
+        console.log('� Course ID:', savedEnrollment.courseId)
+        console.log('💰 Amount Paid: $', savedEnrollment.amount)
 
-        // Call enrollment API
-        console.log('🎓 Calling enrollment API...')
-        await enrollStudent(courseId, email)
+        // Call enrollment API with payment data
+        console.log('🎓 📡 SENDING TO OPENEDX IN REAL-TIME...')
+        await enrollStudent(courseId, email, paymentIntent.id, paymentIntent.amount / 100)
 
     } catch (error) {
         console.error('💥 Error handling successful payment:', error)
@@ -205,7 +201,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
             const savedEnrollment = await enrollment.save()
             console.log('✅ Enrollment saved from session:', savedEnrollment._id)
 
-            await enrollStudent(courseId, email)
+            await enrollStudent(courseId, email, session.id, (session.amount_total || 0) / 100)
         }
 
     } catch (error) {
@@ -216,11 +212,12 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     }
 }
 
-async function enrollStudent(courseId: string, email: string) {
+async function enrollStudent(courseId: string, email: string, paymentId?: string, amount?: number) {
     try {
         console.log(`🎓 Enrolling student ${email} in course ${courseId}...`)
 
-        const enrollResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/enroll`, {
+        // Call internal enrollment API first
+        const internalEnrollResponse = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/enroll`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -228,16 +225,27 @@ async function enrollStudent(courseId: string, email: string) {
             body: JSON.stringify({ courseId, email }),
         })
 
-        console.log('📡 Enrollment API response status:', enrollResponse.status)
+        console.log('📡 Internal enrollment API response status:', internalEnrollResponse.status)
 
-        if (!enrollResponse.ok) {
-            const errorText = await enrollResponse.text()
-            console.error('❌ Enrollment API failed:', errorText)
-            throw new Error(`Enrollment API failed: ${enrollResponse.statusText}`)
+        if (!internalEnrollResponse.ok) {
+            const errorText = await internalEnrollResponse.text()
+            console.error('❌ Internal enrollment API failed:', errorText)
+        } else {
+            const result = await internalEnrollResponse.json()
+            console.log('✅ Internal enrollment successful:', result)
         }
 
-        const result = await enrollResponse.json()
-        console.log('✅ Student enrolled successfully:', result)
+        // Send enrollment webhook to OpenedX if payment data is available
+        if (paymentId && amount !== undefined) {
+            console.log('🔗 Sending enrollment webhook to OpenedX...')
+            await sendEnrollmentWebhookToOpenedX({
+                courseId,
+                email,
+                paymentId,
+                amount
+            })
+        }
+
     } catch (error) {
         console.error('💥 Error enrolling student:', error)
         console.error('Error details:', {
@@ -246,6 +254,97 @@ async function enrollStudent(courseId: string, email: string) {
             error: error instanceof Error ? error.message : String(error)
         })
         // In production, you might want to add this to a retry queue
+    }
+}
+
+// Enhanced function to send webhook to OpenedX with better error handling
+async function sendEnrollmentWebhookToOpenedX(paymentData: {
+    courseId: string;
+    email: string;
+    paymentId: string;
+    amount: number;
+}) {
+    try {
+        console.log('🎯 📡 REAL-TIME OPENEDX WEBHOOK SENDING...')
+        console.log('📋 Payment Data:', JSON.stringify(paymentData, null, 2))
+
+        // Create webhook signature (you'll need to implement this based on OpenedX requirements)
+        const webhookSignature = process.env.STRIPE_WEBHOOK_SECRET || 'fallback-signature'
+
+        const webhookPayload = {
+            type: 'payment_intent.succeeded',
+            data: {
+                object: {
+                    id: paymentData.paymentId,
+                    receipt_email: paymentData.email,
+                    metadata: {
+                        course_id: paymentData.courseId,
+                        email: paymentData.email
+                    },
+                    amount: paymentData.amount * 100 // Convert to cents
+                }
+            }
+        }
+
+        console.log('📡 Sending to OpenedX webhook payload:', JSON.stringify(webhookPayload, null, 2))
+
+        // Try multiple possible OpenedX webhook endpoints
+        const possibleEndpoints = [
+            'https://lms.maaledu.com/api/maal-edu-webhook/',
+            'https://lms.maaledu.com/api/webhooks/stripe/',
+            'https://lms.maaledu.com/webhooks/stripe/',
+            'https://lms.maaledu.com/api/stripe-webhook/'
+        ]
+
+        let webhookSent = false
+
+        for (const endpoint of possibleEndpoints) {
+            try {
+                console.log(`🔄 Trying OpenedX endpoint: ${endpoint}`)
+
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Stripe-Signature': `whsec_${webhookSignature}`,
+                        'User-Agent': 'MaalEdu-Webhook/1.0'
+                    },
+                    body: JSON.stringify(webhookPayload)
+                })
+
+                console.log(`📡 OpenedX response status for ${endpoint}:`, response.status)
+
+                if (response.ok) {
+                    console.log('✅ 🎉 OPENEDX WEBHOOK SENT SUCCESSFULLY!')
+                    const result = await response.text()
+                    console.log('📋 OpenedX success response:', result)
+                    webhookSent = true
+                    break
+                } else if (response.status === 404) {
+                    console.log(`⚠️ Endpoint ${endpoint} not found (404), trying next...`)
+                    continue
+                } else {
+                    const errorText = await response.text()
+                    console.log(`❌ OpenedX webhook failed for ${endpoint}:`, response.status, errorText)
+                }
+
+            } catch (endpointError) {
+                console.log(`❌ Error with endpoint ${endpoint}:`, endpointError)
+                continue
+            }
+        }
+
+        if (!webhookSent) {
+            console.log('⚠️ All OpenedX endpoints failed - enrollment saved in MongoDB but OpenedX not notified')
+            console.log('💡 Please verify the correct OpenedX webhook endpoint with your team')
+
+            // For now, we'll continue without failing the entire process
+            // The enrollment is still saved in MongoDB
+        }
+
+    } catch (error) {
+        console.error('💥 Error sending OpenedX webhook:', error)
+        console.log('⚠️ OpenedX webhook failed but enrollment is saved in MongoDB')
     }
 }
 
