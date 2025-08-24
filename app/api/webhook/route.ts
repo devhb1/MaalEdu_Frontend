@@ -235,14 +235,15 @@ async function enrollStudent(courseId: string, email: string, paymentId?: string
             console.log('✅ Internal enrollment successful:', result)
         }
 
-        // Send enrollment webhook to OpenedX if payment data is available
+        // Send enrollment to OpenedX if payment data is available
         if (paymentId && amount !== undefined) {
-            console.log('🔗 Sending enrollment webhook to OpenedX...')
-            await sendEnrollmentWebhookToOpenedX({
+            console.log('🔗 Enrolling user in OpenedX...')
+            await enrollUserInOpenEdX({
                 courseId,
                 email,
                 paymentId,
-                amount
+                amount,
+                status: 'paid'
             })
         }
 
@@ -257,94 +258,102 @@ async function enrollStudent(courseId: string, email: string, paymentId?: string
     }
 }
 
-// Enhanced function to send webhook to OpenedX with better error handling
-async function sendEnrollmentWebhookToOpenedX(paymentData: {
+// Direct OpenedX API enrollment function
+async function enrollUserInOpenEdX(enrollmentData: {
     courseId: string;
     email: string;
     paymentId: string;
     amount: number;
+    status: string;
 }) {
+    const API_KEY = process.env.OPENEDX_API_KEY;
+    const LMS_URL = process.env.OPENEDX_LMS_URL;
+
+    if (!API_KEY) {
+        console.error('❌ OPENEDX_API_KEY environment variable is not set');
+        return { success: false, message: 'OpenedX API key not configured' };
+    }
+
+    if (!LMS_URL) {
+        console.error('❌ OPENEDX_LMS_URL environment variable is not set');
+        return { success: false, message: 'OpenedX LMS URL not configured' };
+    }
+
     try {
-        console.log('🎯 📡 REAL-TIME OPENEDX WEBHOOK SENDING...')
-        console.log('📋 Payment Data:', JSON.stringify(paymentData, null, 2))
+        console.log('🎯 📡 ENROLLING USER IN OPENEDX VIA API...')
+        console.log('📋 Enrollment Data:', JSON.stringify(enrollmentData, null, 2))
 
-        // Create webhook signature (you'll need to implement this based on OpenedX requirements)
-        const webhookSignature = process.env.STRIPE_WEBHOOK_SECRET || 'fallback-signature'
-
-        const webhookPayload = {
-            type: 'payment_intent.succeeded',
-            data: {
-                object: {
-                    id: paymentData.paymentId,
-                    receipt_email: paymentData.email,
-                    metadata: {
-                        course_id: paymentData.courseId,
-                        email: paymentData.email
-                    },
-                    amount: paymentData.amount * 100 // Convert to cents
-                }
+        // First, find the user by email
+        console.log(`🔍 Finding user by email: ${enrollmentData.email}`)
+        const userResponse = await fetch(`${LMS_URL}/api/user/v1/accounts`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${API_KEY}`,
+                'Content-Type': 'application/json'
             }
+        });
+
+        if (!userResponse.ok) {
+            console.error(`❌ Failed to find user: ${userResponse.status} ${userResponse.statusText}`)
+            throw new Error('Failed to find user');
         }
 
-        console.log('📡 Sending to OpenedX webhook payload:', JSON.stringify(webhookPayload, null, 2))
+        console.log('✅ User found successfully')
 
-        // Try multiple possible OpenedX webhook endpoints
-        const possibleEndpoints = [
-            'https://lms.maaledu.com/api/maal-edu-webhook/',
-            'https://lms.maaledu.com/api/webhooks/stripe/',
-            'https://lms.maaledu.com/webhooks/stripe/',
-            'https://lms.maaledu.com/api/stripe-webhook/'
-        ]
+        // Enroll user in course
+        console.log(`🎓 Enrolling user in course: ${enrollmentData.courseId}`)
+        const enrollmentResponse = await fetch(`${LMS_URL}/api/enrollment/v1/enrollment`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                course_details: {
+                    course_id: enrollmentData.courseId,
+                    mode: 'verified', // or 'audit', 'honor'
+                    enrollment_attributes: [
+                        {
+                            namespace: 'payment',
+                            name: 'payment_id',
+                            value: enrollmentData.paymentId
+                        },
+                        {
+                            namespace: 'payment',
+                            name: 'amount',
+                            value: enrollmentData.amount.toString()
+                        },
+                        {
+                            namespace: 'payment',
+                            name: 'status',
+                            value: enrollmentData.status
+                        }
+                    ]
+                },
+                user: enrollmentData.email
+            })
+        });
 
-        let webhookSent = false
-
-        for (const endpoint of possibleEndpoints) {
-            try {
-                console.log(`🔄 Trying OpenedX endpoint: ${endpoint}`)
-
-                const response = await fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Stripe-Signature': `whsec_${webhookSignature}`,
-                        'User-Agent': 'MaalEdu-Webhook/1.0'
-                    },
-                    body: JSON.stringify(webhookPayload)
-                })
-
-                console.log(`📡 OpenedX response status for ${endpoint}:`, response.status)
-
-                if (response.ok) {
-                    console.log('✅ 🎉 OPENEDX WEBHOOK SENT SUCCESSFULLY!')
-                    const result = await response.text()
-                    console.log('📋 OpenedX success response:', result)
-                    webhookSent = true
-                    break
-                } else if (response.status === 404) {
-                    console.log(`⚠️ Endpoint ${endpoint} not found (404), trying next...`)
-                    continue
-                } else {
-                    const errorText = await response.text()
-                    console.log(`❌ OpenedX webhook failed for ${endpoint}:`, response.status, errorText)
-                }
-
-            } catch (endpointError) {
-                console.log(`❌ Error with endpoint ${endpoint}:`, endpointError)
-                continue
-            }
-        }
-
-        if (!webhookSent) {
-            console.log('⚠️ All OpenedX endpoints failed - enrollment saved in MongoDB but OpenedX not notified')
-            console.log('💡 Please verify the correct OpenedX webhook endpoint with your team')
-
-            // For now, we'll continue without failing the entire process
-            // The enrollment is still saved in MongoDB
+        if (enrollmentResponse.ok) {
+            const result = await enrollmentResponse.json();
+            console.log('✅ 🎉 USER ENROLLED SUCCESSFULLY IN OPENEDX!')
+            console.log('📋 Enrollment result:', JSON.stringify(result, null, 2))
+            return { success: true, message: 'Enrollment successful' };
+        } else {
+            const errorData = await enrollmentResponse.json();
+            console.error('❌ OpenedX enrollment failed:', errorData);
+            console.error(`Status: ${enrollmentResponse.status} ${enrollmentResponse.statusText}`)
+            return { success: false, message: errorData.message || 'Enrollment failed' };
         }
 
     } catch (error) {
-        console.error('💥 Error sending OpenedX webhook:', error)
-        console.log('⚠️ OpenedX webhook failed but enrollment is saved in MongoDB')
+        console.error('💥 OpenedX enrollment error:', error);
+        console.error('Error details:', {
+            courseId: enrollmentData.courseId,
+            email: enrollmentData.email,
+            error: error instanceof Error ? error.message : String(error)
+        })
+        return { success: false, message: error instanceof Error ? error.message : 'Unknown error' };
     }
 }
 
