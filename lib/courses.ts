@@ -21,7 +21,7 @@ export const COURSES: Course[] = [
         ]
     },
     {
-        id: 'advanced-smart-contracts-201',
+        id: 'course-v1:MaalDataLabs+maal101+2025_T1',
         title: 'Advanced Smart Contracts & DApp Development',
         description: 'Take your blockchain skills to the next level with advanced smart contract programming, DApp architecture, and enterprise blockchain solutions. Ideal for developers with basic blockchain knowledge.',
         price: 299.99,

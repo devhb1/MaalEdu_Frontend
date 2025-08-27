@@ -94,21 +94,14 @@ export function SiteHeader() {
             <Button 
               asChild 
               variant="outline" 
-              className="border-white dark:border-gray-200 text-white dark:text-gray-100 hover:bg-white hover:text-orange-600 dark:hover:bg-gray-100 dark:hover:text-orange-700 bg-transparent transition-colors duration-200"
+              className="border-white dark:border-gray-200 text-white dark:text-gray-100 hover:bg-white hover:text-black dark:hover:bg-gray-100 dark:hover:text-orange-700 bg-transparent transition-colors duration-200"
             >
               <Link href="https://lms.maaledu.com" target="_blank">
-                Login
+               MaalEdu lms
               </Link>
             </Button>
             
-            <Button 
-              asChild 
-              className="bg-white dark:bg-gray-100 text-orange-600 dark:text-orange-700 hover:bg-orange-50 dark:hover:bg-gray-200 font-semibold shadow-md transition-all duration-200 hover:shadow-lg"
-            >
-              <Link href="https://lms.maaledu.com" target="_blank">
-                Sign Up
-              </Link>
-            </Button>
+            
 
             <ThemeToggle />
           </div>
